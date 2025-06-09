@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Administrativo - ArtisanHaven</title>
+
+    <script>
+        const userString = localStorage.getItem('user');
+        // Verifica se não há usuário ou se o usuário não é o admin
+        if (!userString || JSON.parse(userString).email !== 'admin@artisan.com') {
+            window.location.replace('./login.html');
+        }
+    </script>
+
     <link href="src/output.css" rel="stylesheet">
+    <link href="./src/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>
 </head>
 <body class="bg-gray-50">
 

@@ -1,17 +1,24 @@
+// frontend/src/js/admin.js
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- Proteção da Página ---
     const userString = localStorage.getItem('user');
     if (!userString) {
-        // Se não há usuário, redireciona para o login
         window.location.href = './login.html';
         return;
     }
-    
+
     const user = JSON.parse(userString);
-    // Simples verificação de admin. Em um app real, isso seria um 'role' ou 'permission'.
     if (user.email !== 'admin@artisan.com') {
-        alert('Acesso negado. Você não é um administrador.');
-        window.location.href = './index.html';
+        // ANTES: alert('Acesso negado. Você não é um administrador.');
+        Toastify({
+            text: "Acesso negado. Apenas administradores.",
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            style: { background: "#F44336" }
+        }).showToast();
+        setTimeout(() => { window.location.href = './index.html'; }, 3000);
         return;
     }
 
@@ -31,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(API_URL);
             const products = await response.json();
-            
+
             productListBody.innerHTML = ''; // Limpa a tabela antes de preencher
             products.forEach(product => {
                 const row = document.createElement('tr');
@@ -64,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listener para o formulário (Criação e Edição)
     productForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-
         const id = hiddenIdInput.value;
         const productData = {
             name: document.getElementById('name').value,
@@ -72,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             description: document.getElementById('description').value,
             image_url: document.getElementById('image_url').value,
         };
-
         const method = id ? 'PUT' : 'POST';
         const url = id ? `${API_URL}/${id}` : API_URL;
 
@@ -84,10 +89,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
+                // ADICIONADO: Notificação de sucesso
+                Toastify({
+                    text: `Produto ${id ? 'atualizado' : 'criado'} com sucesso!`,
+                    duration: 3000,
+                    style: { background: "#4CAF50" }
+                }).showToast();
                 clearForm();
                 fetchAndDisplayProducts(); // Atualiza a lista
             } else {
-                alert('Erro ao salvar o produto.');
+                // ANTES: alert('Erro ao salvar o produto.');
+                Toastify({
+                    text: "Erro ao salvar o produto.",
+                    duration: 3000,
+                    style: { background: "#F44336" }
+                }).showToast();
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
@@ -101,13 +117,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Ação de DELETAR
         if (target.classList.contains('delete-btn')) {
+            // MANTIDO: O confirm() é importante para evitar exclusões acidentais
             if (confirm(`Tem certeza que deseja excluir o produto com ID ${id}?`)) {
                 try {
                     const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
                     if (response.ok) {
+                        // ADICIONADO: Notificação de sucesso
+                        Toastify({
+                            text: "Produto excluído com sucesso!",
+                            duration: 3000,
+                            style: { background: "#4CAF50" }
+                        }).showToast();
                         fetchAndDisplayProducts(); // Atualiza a lista
                     } else {
-                        alert('Erro ao excluir o produto.');
+                        // ANTES: alert('Erro ao excluir o produto.');
+                        Toastify({
+                            text: "Erro ao excluir o produto.",
+                            duration: 3000,
+                            style: { background: "#F44336" }
+                        }).showToast();
                     }
                 } catch (error) {
                     console.error('Erro na requisição:', error);
@@ -117,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Ação de EDITAR
         if (target.classList.contains('edit-btn')) {
-            // Busca os dados completos do produto para preencher o formulário
             try {
                 const response = await fetch(`${API_URL}/${id}`);
                 const product = await response.json();

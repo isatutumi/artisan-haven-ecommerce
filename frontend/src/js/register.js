@@ -21,15 +21,40 @@ document.getElementById('register-form').addEventListener('submit', async (event
         const data = await response.json();
 
         if (response.ok) { // Status 201 Created
-            alert(data.message);
-            // Redireciona o usuário para a página de login após o sucesso
-            window.location.href = './login.html';
+            // ANTES: alert(data.message);
+            Toastify({
+                text: data.message,
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                style: { background: "#4CAF50" } // Verde sucesso
+            }).showToast();
+            
+            // ANTES: window.location.href = './login.html';
+            // AGORA: Redireciona após 3 segundos para dar tempo de ler a notificação.
+            setTimeout(() => {
+                window.location.href = './login.html';
+            }, 3000);
+            
         } else {
-            // Mostra a mensagem de erro vinda da API (ex: "Email já cadastrado")
-            alert(`Erro: ${data.error}`);
+            // ANTES: alert(`Erro: ${data.error}`);
+            Toastify({
+                text: `Erro: ${data.error}`,
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                style: { background: "#F44336" } // Vermelho erro
+            }).showToast();
         }
     } catch (error) {
         console.error('Falha ao tentar registrar:', error);
-        alert('Ocorreu um erro ao tentar se registrar. Tente novamente.');
+        // ANTES: alert('Ocorreu um erro ao tentar se registrar. Tente novamente.');
+        Toastify({
+            text: "Ocorreu um erro de conexão. Tente novamente.",
+            duration: 3000,
+            gravity: "top",
+            position: "center",
+            style: { background: "#F44336" } // Vermelho erro
+        }).showToast();
     }
 });

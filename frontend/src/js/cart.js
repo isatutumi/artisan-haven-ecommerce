@@ -2,46 +2,55 @@
 
 /**
  * Busca o carrinho do localStorage.
- * @returns {Array} O carrinho de compras, ou um array vazio se não houver um.
  */
 function getCart() {
-    const cartString = localStorage.getItem('cart') || '[]';
-    return JSON.parse(cartString);
+    return JSON.parse(localStorage.getItem('cart')) || [];
 }
 
 /**
  * Salva o carrinho no localStorage.
- * @param {Array} cart O array do carrinho de compras a ser salvo.
  */
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 /**
- * Atualiza o número exibido no ícone do carrinho no cabeçalho.
+ * ATUALIZAÇÃO 1: O ícone do carrinho agora mostra o NÚMERO TOTAL de itens.
+ * Em vez de contar quantos produtos diferentes existem, ele soma todas as quantidades.
  */
 function updateCartIcon() {
     const cart = getCart();
     const cartCountElement = document.getElementById('cart-count');
+
+    // Usa reduce para somar a quantidade de cada item no carrinho
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
     if (cartCountElement) {
-        cartCountElement.textContent = cart.length;
+        cartCountElement.textContent = totalItems;
     }
 }
 
 /**
- * Adiciona um produto ao carrinho de compras.
- * @param {number} productId O ID do produto.
- * @param {string} productName O nome do produto.
- * @param {number} productPrice O preço do produto.
- * @param {string} productImage A URL da imagem do produto.
+ * ATUALIZAÇÃO 2: A função addToCart agora é mais inteligente.
+ * Se o produto já existe, ela incrementa a quantidade em vez de apenas alertar.
  */
 function addToCart(productId, productName, productPrice, productImage) {
     const cart = getCart();
     const existingProduct = cart.find(item => item.id === productId);
 
     if (existingProduct) {
-        alert('Este produto já está no seu carrinho!');
+        // Se o produto já existe no carrinho, apenas incrementa sua quantidade.
+        existingProduct.quantity++;
+        // ANTES: alert('Quantidade do produto atualizada no carrinho!');
+        Toastify({
+            text: "Quantidade atualizada no carrinho!",
+            duration: 3000,
+            gravity: "bottom",
+            position: "right",
+            style: { background: "#4CAF50" } // Verde sucesso
+        }).showToast();
     } else {
+        // Se for um novo produto, adiciona ele ao array com quantidade inicial 1.
         cart.push({
             id: productId,
             name: productName,
@@ -49,32 +58,56 @@ function addToCart(productId, productName, productPrice, productImage) {
             image: productImage,
             quantity: 1
         });
-        alert('Produto adicionado ao carrinho!');
+        // ANTES: alert('Produto adicionado ao carrinho!');
+        Toastify({
+            text: "Produto adicionado ao carrinho!",
+            duration: 3000,
+            gravity: "bottom",
+            position: "right",
+            style: { background: "#4CAF50" } // Verde sucesso
+        }).showToast();
     }
 
     saveCart(cart);
     updateCartIcon();
 }
 
-// ======================= ADICIONE ESTA NOVA FUNÇÃO =======================
 /**
- * Remove um produto do carrinho de compras pelo seu ID.
- * @param {number} productId O ID do produto a ser removido.
+ * NOVA FUNÇÃO: Altera a quantidade de um item específico no carrinho.
+ * Esta função será usada pelos botões de "+" e "-".
+ * @param {number} productId O ID do produto a ser atualizado.
+ * @param {number} newQuantity A nova quantidade do produto.
+ */
+function updateItemQuantity(productId, newQuantity) {
+    let cart = getCart();
+
+    // Encontra o item que queremos atualizar.
+    const itemToUpdate = cart.find(item => item.id === productId);
+
+    if (itemToUpdate) {
+        if (newQuantity > 0) {
+            // Se a nova quantidade é positiva, atualiza.
+            itemToUpdate.quantity = newQuantity;
+        } else {
+            // Se a quantidade for 0 ou menor, remove o item do carrinho.
+            cart = cart.filter(item => item.id !== productId);
+        }
+    }
+
+    saveCart(cart);
+    updateCartIcon();
+}
+
+/**
+ * Remove um produto do carrinho de compras pelo seu ID (função existente, sem alterações).
  */
 function removeFromCart(productId) {
     let cart = getCart();
-    
-    // O método filter() cria um NOVO array que inclui todos os itens,
-    // exceto aquele cujo 'id' corresponde ao 'productId' que queremos remover.
     cart = cart.filter(item => item.id !== productId);
-
-    // Salva o novo carrinho (agora sem o item removido) no localStorage
     saveCart(cart);
-    
-    // Atualiza o ícone do carrinho no cabeçalho
     updateCartIcon();
 }
-// ======================================================================
+
 
 // Este evento garante que o ícone do carrinho seja atualizado assim que a página for carregada.
 document.addEventListener('DOMContentLoaded', () => {
