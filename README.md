@@ -17,18 +17,23 @@ O sistema conta com uma interface moderna e intuitiva para os clientes e um pode
 O projeto é dividido em duas grandes áreas: a loja virtual (storefront) para os clientes e a área de gerenciamento para o administrador.
 
 #### 🛍️ Funcionalidades para Clientes
-- **Visualização de Produtos:** Galeria de produtos com design limpo e responsivo.
-- **Detalhes do Produto:** Página dedicada para cada item, com descrição, preço e imagem em destaque.
-- **Carrinho de Compras:** Adição e remoção de itens, com persistência de dados no navegador (`localStorage`).
-- **Autenticação:** Sistema completo de registro e login para clientes.
+- **Vitrine de Produtos:** Galeria de produtos dinâmica, carregada via API.
+- **Página de Detalhes:** Visualização dedicada para cada item do catálogo.
+- **Carrinho de Compras Interativo:** Adição, remoção e **ajuste de quantidade** de itens, com cálculo de totais em tempo real e persistência de dados no navegador.
+- **Sistema de Autenticação:** Fluxo completo de registro e login para clientes.
+- **Fluxo de Checkout Simulado:**
+    - **Stepper Visual:** Linha do tempo que guia o usuário pelas etapas (`Carrinho` -> `Endereço` -> `Pagamento`).
+    - **Formulário de Endereço:** Com preenchimento automático de rua, bairro, cidade e estado a partir da consulta em uma API externa (ViaCEP).
+    - **Simulação de Pagamento:** Formulário para inserção de dados de pagamento (fictício) para finalizar a compra.
+- **Notificações Modernas:** Uso de notificações "Toast" para feedback de ações (sucesso, erro), melhorando a experiência do usuário.
 
 #### ⚙️ Funcionalidades para Administrador
-- **Dashboard Protegido:** Acesso restrito ao painel administrativo.
-- **Gerenciamento de Produtos (CRUD):**
-  - **Create:** Adicionar novos produtos através de um formulário.
-  - **Read:** Visualizar todos os produtos cadastrados em uma tabela.
-  - **Update:** Editar as informações de produtos existentes.
-  - **Delete:** Remover produtos do catálogo.
+- **Dashboard Protegido:** Acesso restrito ao painel administrativo apenas para usuários autorizados.
+- **Gerenciamento de Produtos (CRUD Completo):**
+  - **Create:** Adicionar novos produtos através de um formulário interativo.
+  - **Read:** Visualizar todos os produtos cadastrados em uma tabela de fácil leitura.
+  - **Update:** Preenchimento automático do formulário para editar informações de produtos existentes.
+  - **Delete:** Remover produtos do catálogo com uma etapa de confirmação.
 
 ---
 
