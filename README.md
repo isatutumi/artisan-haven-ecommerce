@@ -24,7 +24,7 @@ O projeto é dividido em duas grandes áreas: a loja virtual (storefront) para o
 - **Fluxo de Checkout Simulado:**
     - **Stepper Visual:** Linha do tempo que guia o usuário pelas etapas (`Carrinho` -> `Endereço` -> `Pagamento`).
     - **Formulário de Endereço:** Com preenchimento automático de rua, bairro, cidade e estado a partir da consulta em uma API externa (ViaCEP).
-    - **Simulação de Pagamento:** Formulário para inserção de dados de pagamento (fictício) para finalizar a compra.
+    - **Simulação de Pagamento:** Formulário para inserção de dados de pagamento para finalizar a compra. *(Nota: O processo de pagamento é uma simulação para fins de demonstração e não processa transações financeiras reais, garantindo a segurança e o foco na experiência do usuário.)*
 - **Notificações Modernas:** Uso de notificações "Toast" para feedback de ações (sucesso, erro), melhorando a experiência do usuário.
 
 #### ⚙️ Funcionalidades para Administrador
@@ -45,7 +45,7 @@ A tabela abaixo lista as tecnologias e ferramentas utilizadas na construção do
 |------------|------------|
 | **HTML5** | Estruturação e semântica das páginas web. |
 | **Tailwind CSS** | Framework CSS para estilização rápida e moderna, com foco em utility-first. |
-| **JavaScript (ES6+)** | Interatividade, manipulação do DOM e lógica do frontend. |
+| **JavaScript (ES6+)** | Interatividade, manipulação do DOM, chamadas a APIs e lógica do frontend. |
 | **Python** | Linguagem principal do backend. |
 | **Flask** | Micro-framework Python para a construção da API RESTful. |
 | **Git & GitHub** | Controle de versão e hospedagem do código. |
