@@ -1,0 +1,15 @@
+# Ambiente Virtual Python
+backend/venv/
+backend/.env
+__pycache__/
+*.pyc
+
+# Dependências Node
+frontend/node_modules/
+
+# Arquivos de Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos do VS Code
+.vscode/
