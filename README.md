@@ -55,5 +55,5 @@ Este projeto está sob a licença MIT.
 ---
 
 <p align="center">
-  Feito com ❤️ por [Seu Nome Aqui]
+  Feito com ❤️ por Harumi.
 </p>
