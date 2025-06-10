@@ -5,7 +5,14 @@ from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-CORS(app)
+# Define a lista de URLs que podem fazer requisições para sua API
+origins = [
+    "http://127.0.0.1:5500",  # Permite que você continue testando localmente
+    "https://artisan-haven-ecommerce.vercel.app"  # A URL do seu site na Vercel
+]
+
+# Aplica a configuração do CORS, permitindo apenas as origens da lista
+CORS(app, resources={r"/api/*": {"origins": origins}})
 
 # --- DADOS MOCADOS (Agora como variáveis globais) ---
 
