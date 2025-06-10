@@ -1,7 +1,11 @@
 # ArtisanHaven - E-commerce de Produtos Artesanais
 
 <p align="center">
-  <b>💼 Projeto Full Stack | 🐍 Flask + 🧩 Tailwind + ⚙️ JavaScript | 🌐 API RESTful</b><br>
+  <img src="https://img.shields.io/badge/Status-Concluído-green?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Flask-Python-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/JavaScript-ES6-yellow?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/API-ViaCEP-important?style=for-the-badge"/><br>
   <i>Uma vitrine digital profissional para artesãos locais, com gestão de produtos, checkout completo e painel administrativo seguro.</i>
 </p>
 
