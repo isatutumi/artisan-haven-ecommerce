@@ -32,7 +32,7 @@ Para explorar as funcionalidades de gerenciamento, utilize as seguintes credenci
 
 ---
 
-## ✨ Destaques Técnicos (Habilidades Demonstradas)
+## ✨ Destaques Técnicos
 
 * **Arquitetura Full-Stack:** Clara separação entre o **Backend** (API RESTful em Python/Flask, deploy no Render) e o **Frontend** (HTML/CSS/JS puro, deploy na Vercel), comunicando-se via requisições HTTP.
 * **API RESTful Completa:** Implementação de todos os endpoints **CRUD** (Create, Read, Update, Delete) para o gerenciamento de produtos.
