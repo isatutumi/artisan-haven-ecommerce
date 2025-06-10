@@ -18,15 +18,18 @@ function saveCart(cart) {
  * ATUALIZAÇÃO 1: O ícone do carrinho agora mostra o NÚMERO TOTAL de itens.
  * Em vez de contar quantos produtos diferentes existem, ele soma todas as quantidades.
  */
+// dentro de frontend/src/js/cart.js
+
 function updateCartIcon() {
     const cart = getCart();
-    const cartCountElement = document.getElementById('cart-count');
-
-    // Usa reduce para somar a quantidade de cada item no carrinho
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    // Deve usar o ID 'cart-count', sem '-desktop' ou '-mobile'
+    const cartCount = document.getElementById('cart-count');
 
-    if (cartCountElement) {
-        cartCountElement.textContent = totalItems;
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+        cartCount.classList.toggle('hidden', totalItems === 0);
     }
 }
 

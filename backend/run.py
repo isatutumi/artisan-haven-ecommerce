@@ -10,30 +10,75 @@ CORS(app)
 # --- DADOS MOCADOS (Agora como variáveis globais) ---
 
 products = [
+    # --- Produtos existentes ---
     {
         "id": 1,
-        "name": "Vaso de Cerâmica Artesanal",
-        "price": 85.00,
-        "description": "Um vaso único, moldado e pintado à mão, perfeito para decorar qualquer ambiente.",
-        "image_url": "https://via.placeholder.com/400x400.png?text=Vaso+de+Ceramica"
+        "name": "Vaso Essência Esculpida",
+        "price": 110.00,
+        "description": "Cada curva, um convite à exclusividade. Uma obra de arte singular para seu espaço.",
+        "image_url": "https://images.unsplash.com/photo-1736124708833-e35794c2faac?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "id": 2,
-        "name": "Colar de Prata com Pedra Lunar",
-        "price": 120.50,
-        "description": "Colar elegante feito em prata 925 com uma autêntica pedra lunar.",
-        "image_url": "https://via.placeholder.com/400x400.png?text=Colar+de+Prata"
+        "name": "Pratos Legado Dourado",
+        "price": 180.00,
+        "description": "A beleza da imperfeição elevada a um novo patamar de requinte. Peças de história.",
+        "image_url": "https://images.unsplash.com/photo-1701383700322-007c0fe0a154?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "id": 3,
-        "name": "Bolsa de Macramê",
+        "name": "Copo Toque Ancestral",
         "price": 95.00,
-        "description": "Bolsa de ombro tecida à mão com a técnica de macramê, ideal para um look casual.",
-        "image_url": "https://via.placeholder.com/400x400.png?text=Bolsa+de+Macrame"
+        "description": "Sinta a conexão com a terra em cada toque. Exclusividade em sua mão.",
+        "image_url": "https://images.unsplash.com/photo-1666445759502-85124c28524e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    # --- 7 NOVOS PRODUTOS ADICIONADOS ---
+    {
+        "id": 4,
+        "name": "Vaso Harmonia Intrínseca",
+        "price": 130.00,
+        "description": " Uma declaração de design. A peça que redefine o minimalismo.",
+        "image_url": "https://images.unsplash.com/photo-1643569556871-91ec60671ed7?q=80&w=1923&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 5,
+        "name": "Copo Fragmentos Únicos",
+        "price": 320.00,
+        "description": "Texturas que contam histórias. Um conjunto de exclusividade para momentos especiais.",
+        "image_url": "https://images.unsplash.com/photo-1666713716266-dcc759bdcc3a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 6,
+        "name": "Copo Essência Dual",
+        "price": 60.00,
+        "description": "Onde duas almas se encontram. Design e sofisticação em uma única peça.",
+        "image_url": "https://images.unsplash.com/photo-1666866875759-84154ec24c85?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjU3fHxjZXIlQzMlQTJtaWNhfGVufDB8fDB8fHwy"
+    },
+    {
+        "id": 7,
+        "name": "Coleção Formas Primitivas",
+        "price": 380.00,
+        "description": "Um conjunto exclusivo de texturas e contornos que celebram a arte da criação. Cada peça, um toque de autenticidade para seu espaço.",
+        "image_url": "https://images.unsplash.com/photo-1701267658898-a3f2c8f11e72?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzU1fHxjZXJhbWljfGVufDB8fDB8fHwy"
+    },
+    {
+        "id": 8,
+        "name": "Vaso Corações Secretos",
+        "price": 89.90,
+        "description": "Uma escultura que esconde mistérios e revela a paixão do artesão. Design singular para olhares que valorizam o exclusivo.",
+        "image_url": "https://images.unsplash.com/photo-1694010336210-1f0259298530?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjA2fHxjZXJhbWljfGVufDB8fDB8fHwy"
+    },
+    {
+        "id": 9,
+        "name": "Copo Maré de Singularidade",
+        "price": 135.00,
+        "description": "O frescor do oceano em um design inconfundível. Cada salpico conta uma história de exclusividade.",
+        "image_url": "https://images.unsplash.com/photo-1666949655621-c9ba05edc6ca?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjYzfHxjZXJhbWljfGVufDB8fDB8fHwy"
     }
 ]
 # Simulando o auto-incremento de ID de um banco de dados
-next_product_id = 4
+next_product_id = 10
+
 
 users = [
     {

@@ -7,35 +7,46 @@
 
     <script>
         if (!localStorage.getItem('user')) {
-            // Se não há usuário logado, redireciona para o login ANTES de a página carregar
             window.location.replace('./login.html');
         }
     </script>
 
-    <link href="./src/css/output.css" rel="stylesheet">
-        <link href="./src/css/style.css" rel="stylesheet">
+    <link href="./src/css/style.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 overflow-x-hidden">
 
-    <header class="bg-white shadow-md sticky top-0 z-20">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="./index.html" class="text-3xl font-bold text-gray-800">ArtisanHaven</a>
-            <div class="flex items-center space-x-4">
-                <div id="auth-links" class="flex items-center space-x-4"></div>
-                <a href="./carrinho.html" class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-600 hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </a>
-            </div>
-        </nav>
-    </header>
+<header class="bg-white shadow-md sticky top-0 z-20">
+    <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+        <a href="./index.html" class="text-2xl sm:text-3xl font-bold text-gray-800">
+            ArtisanHaven
+        </a>
+
+        <div class="flex items-center space-x-3 sm:space-x-4">
+            
+            <div id="auth-links-desktop" class="hidden sm:flex items-center space-x-4 text-sm">
+                </div>
+            
+            <a href="./carrinho.html" class="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-600 hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </a>
+
+            <button id="hamburger-btn" class="sm:hidden text-gray-800 focus:outline-none hidden">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden sm:hidden bg-white shadow-lg">
+        </div>
+</header>
 
     <main class="container mx-auto px-6 py-12">
         <div id="stepper" class="w-full max-w-3xl mx-auto mb-12">
-            </div>
+        </div>
 
         <div id="address-section" class="w-full max-w-3xl mx-auto">
             <div class="bg-white p-8 rounded-lg shadow-md">
@@ -108,18 +119,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-8 flex justify-between items-center">
-                        <button type="button" id="back-to-address-btn" class="text-gray-600 font-semibold hover:text-indigo-600">
+                    <div class="mt-8 flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center">
+                        <button type="button" id="back-to-address-btn" class="w-full sm:w-auto text-gray-600 font-semibold hover:text-indigo-600 mt-4 sm:mt-0 py-3">
                             &larr; Voltar para o Endereço
                         </button>
-                        <button type="submit" class="bg-green-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-green-700 transition-colors">
+                        <button type="submit" class="bg-green-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-green-700 transition-colors w-full sm:w-auto">
                             Finalizar e Pagar
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-
     </main>
 
     <script src="./src/js/auth.js"></script>

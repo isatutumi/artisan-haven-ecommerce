@@ -1,51 +1,78 @@
 // frontend/src/js/auth.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    const authLinksContainer = document.getElementById('auth-links');
+    // Referências aos elementos do header
+    const authLinksContainer = document.getElementById('auth-links-container');
+    const mobileMenuContainer = document.getElementById('mobile-menu');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    
     const userString = localStorage.getItem('user');
+    const user = userString ? JSON.parse(userString) : null;
 
-    if (userString) {
-        // CASO 1: O USUÁRIO ESTÁ LOGADO
-        const user = JSON.parse(userString);
+    // Funções de logout
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        window.location.href = './index.html';
+    };
 
-        let finalHTML = `<span class="text-gray-800 font-medium">Olá, ${user.name}!</span>`;
+    const setupLogout = (buttonId) => {
+        const logoutButton = document.getElementById(buttonId);
+        if (logoutButton) {
+            logoutButton.addEventListener('click', handleLogout);
+        }
+    };
 
-        // --- NOVA LÓGICA DE ADMIN ---
-        // Verifica se o email do usuário logado é o do administrador
+    // Esconde tudo por padrão para evitar "flash" de conteúdo errado
+    authLinksContainer.innerHTML = '';
+    mobileMenuContainer.innerHTML = '';
+    hamburgerBtn.classList.add('hidden');
+
+    if (user) {
+        // --- CENÁRIO 1: USUÁRIO ESTÁ LOGADO ---
+        const firstName = user.name.split(' ')[0];
+
         if (user.email === 'admin@artisan.com') {
-            // Se for, adiciona o link para o Painel Administrativo
-            finalHTML += `
-                <a href="./admin.html" class="text-sm text-indigo-600 hover:underline font-semibold ml-4">
-                    Painel Admin
-                </a>
+            // É O ADMIN
+            authLinksContainer.classList.add('hidden', 'sm:flex', 'sm:items-center', 'sm:space-x-4');
+            authLinksContainer.innerHTML = `
+                <span class="font-medium">Olá, ${firstName}!</span>
+                <a href="./admin.html" class="text-indigo-600 hover:underline font-semibold">Painel Admin</a>
+                <button id="logout-btn-desktop" class="text-red-600 hover:underline font-semibold">Sair</button>
+            `;
+            hamburgerBtn.classList.remove('hidden');
+            mobileMenuContainer.innerHTML = `
+                <div class="px-6 pt-2 pb-3 space-y-2">
+                    <p class="text-gray-700 px-2 font-semibold">Olá, ${firstName}!</p>
+                    <a href="./admin.html" class="block text-gray-800 py-2 hover:bg-gray-100 rounded-md px-2">Painel Admin</a>
+                    <button id="logout-btn-mobile" class="block w-full text-left text-red-600 py-2 hover:bg-gray-100 rounded-md px-2">Sair</button>
+                </div>
+            `;
+        } else {
+            // É UM USUÁRIO NORMAL
+            authLinksContainer.classList.add('flex', 'items-center', 'space-x-2', 'sm:space-x-4');
+            authLinksContainer.innerHTML = `
+                <span class="font-medium">Olá, ${firstName}!</span>
+                <button id="logout-btn-desktop" class="text-red-600 hover:underline font-semibold">Sair</button>
             `;
         }
-        // --- FIM DA NOVA LÓGICA ---
+        setupLogout('logout-btn-desktop');
+        setupLogout('logout-btn-mobile');
 
-        // Adiciona o botão de Sair, que é comum a todos os usuários logados
-        finalHTML += `
-            <button id="logout-btn" class="text-sm text-red-600 hover:underline font-semibold ml-4">
-                Sair
-            </button>
-        `;
-        
-        authLinksContainer.innerHTML = finalHTML;
-
-        // Adiciona a funcionalidade ao botão "Sair" (código existente)
-        const logoutButton = document.getElementById('logout-btn');
-        if (logoutButton) {
-            logoutButton.addEventListener('click', () => {
-                localStorage.removeItem('user');
-                window.location.href = './index.html';
-            });
-        }
     } else {
-        // CASO 2: O USUÁRIO NÃO ESTÁ LOGADO (código existente, sem alterações)
+        // --- CENÁRIO 2: USUÁRIO DESLOGADO ---
+        authLinksContainer.classList.add('flex', 'items-center', 'space-x-2', 'sm:space-x-4');
         authLinksContainer.innerHTML = `
             <a href="./login.html" class="text-gray-700 hover:text-indigo-600 font-medium">Login</a>
-            <a href="./register.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm font-semibold">
+            <a href="./register.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
                 Registrar
             </a>
         `;
+    }
+    
+    // Lógica do clique no Hambúrguer
+    if (hamburgerBtn && mobileMenuContainer) {
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenuContainer.classList.toggle('hidden');
+        });
     }
 });

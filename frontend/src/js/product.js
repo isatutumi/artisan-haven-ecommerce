@@ -29,25 +29,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Gera o HTML com os detalhes do produto
             const productHtml = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                    <div>
-                        <img src="${product.image_url}" alt="${product.name}" class="w-full h-auto rounded-lg shadow-lg">
-                    </div>
-                    <div class="flex flex-col h-full">
-                        <h1 class="text-4xl font-bold text-gray-800 mb-4">${product.name}</h1>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-6 flex-grow">${product.description}</p>
-                        <div class="flex items-center justify-between mt-auto">
-                            <span class="text-4xl font-extrabold text-indigo-600">R$ ${product.price.toFixed(2).replace('.', ',')}</span>
-                            
-                            <button 
-                                onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image_url}')"
-                                class="bg-indigo-600 text-white font-bold px-8 py-4 rounded-lg hover:bg-indigo-700 transition-colors text-lg">
-                                Adicionar ao Carrinho
-                            </button>
-                            </div>
-                    </div>
+    <div class="max-w-6xl mx-auto p-4"> 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+            
+            <div class="aspect-square w-full rounded-lg shadow-lg overflow-hidden">
+                <img src="${product.image_url}" alt="${product.name}" class="w-full h-full object-cover">
+            </div>
+
+            <div class="flex flex-col h-full">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-800 mb-2">${product.name}</h1>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">${product.description}</p>
                 </div>
-            `;
+
+                <div class="flex-grow"></div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-auto">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-indigo-600 mb-4 sm:mb-0">R$ ${product.price.toFixed(2).replace('.', ',')}</span>
+                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image_url}')"
+                        class="bg-indigo-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-lg hover:bg-indigo-700 transition-colors text-lg">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+`;
 
             // Insere o HTML gerado no container
             productDetailContainer.innerHTML = productHtml;
