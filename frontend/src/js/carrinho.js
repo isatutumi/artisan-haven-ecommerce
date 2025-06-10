@@ -3,7 +3,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const cartItemsContainer = document.getElementById('cart-items-container');
     const cartSummaryContainer = document.getElementById('cart-summary-container');
-    const API_URL = 'http://127.0.0.1:5000/api/products';
+    
+    // ANTES: const API_URL = 'http://127.0.0.1:5000/api/products';
+    // AGORA: Removemos essa linha. Usaremos a variável global API_BASE_URL do config.js
 
     async function renderCart() {
         const localCart = getCart();
@@ -19,16 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 </div>
             `;
-            // Atualiza o stepper para a primeira etapa quando o carrinho está vazio
             const stepperContainer = document.getElementById('stepper');
             if(stepperContainer) {
-                stepperContainer.innerHTML = ''; // Limpa o stepper se não houver itens
+                stepperContainer.innerHTML = '';
             }
             return;
         }
 
         try {
-            const response = await fetch(API_URL);
+            // ANTES: const response = await fetch(API_URL);
+            // AGORA: Usamos a variável global + o endpoint específico
+            const response = await fetch(`${API_BASE_URL}/api/products`);
+            
             const serverProducts = await response.json();
             let totalPrice = 0;
 
@@ -39,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     totalPrice += itemTotalPrice;
 
                     const itemElement = document.createElement('div');
-                    // LAYOUT RESPONSIVO: flex-col no mobile, sm:flex-row em telas maiores
                     itemElement.className = 'flex flex-col sm:flex-row items-center justify-between border-b border-gray-200 py-4';
                     
                     itemElement.innerHTML = `
@@ -80,10 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            // Renderiza o stepper apenas se houver itens no carrinho
             const stepperContainer = document.getElementById('stepper');
             if (stepperContainer) {
-                // Copiamos a lógica do stepper do checkout.js para cá
                 const stepperHTML = `
                     <ol class="flex items-center w-full">
                         <li class="flex w-full items-center text-indigo-600 after:content-[''] after:w-full after:h-1 after:border-b after:border-indigo-100 after:border-4 after:inline-block">

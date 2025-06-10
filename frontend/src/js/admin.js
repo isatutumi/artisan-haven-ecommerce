@@ -28,22 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const hiddenIdInput = document.getElementById('product-id');
     const clearBtn = document.getElementById('clear-btn');
 
-    const API_URL = 'http://127.0.0.1:5000/api/products';
+    // ANTES: const API_URL = 'http://127.0.0.1:5000/api/products';
+    // AGORA: Removemos a constante local. Usaremos a variável global API_BASE_URL do config.js
 
     // --- Funções ---
 
-    // Função para buscar e exibir os produtos na tabela
     const fetchAndDisplayProducts = async () => {
         try {
-            const response = await fetch(API_URL);
+            // Usa a variável global
+            const response = await fetch(`${API_BASE_URL}/api/products`);
             const products = await response.json();
 
-            productListBody.innerHTML = ''; // Limpa a tabela antes de preencher
+            productListBody.innerHTML = '';
             products.forEach(product => {
                 const row = document.createElement('tr');
                 row.className = 'border-b';
-                
-                // O CÓDIGO ATUALIZADO ESTÁ AQUI
                 row.innerHTML = `
                     <td class="py-2 px-4">${product.id}</td>
                     <td class="py-2 px-4">${product.name}</td>
@@ -62,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Função para limpar o formulário e voltar ao modo de adição
     const clearForm = () => {
         productForm.reset();
         hiddenIdInput.value = '';
@@ -80,7 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
             image_url: document.getElementById('image_url').value,
         };
         const method = id ? 'PUT' : 'POST';
-        const url = id ? `${API_URL}/${id}` : API_URL;
+        // Usa a variável global
+        const url = id ? `${API_BASE_URL}/api/products/${id}` : `${API_BASE_URL}/api/products`;
 
         try {
             const response = await fetch(url, {
@@ -90,26 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                Toastify({
-                    text: `Produto ${id ? 'atualizado' : 'criado'} com sucesso!`,
-                    duration: 3000,
-                    style: { background: "#4CAF50" }
-                }).showToast();
+                Toastify({ text: `Produto ${id ? 'atualizado' : 'criado'} com sucesso!`, duration: 3000, style: { background: "#4CAF50" } }).showToast();
                 clearForm();
                 fetchAndDisplayProducts();
             } else {
-                Toastify({
-                    text: "Erro ao salvar o produto.",
-                    duration: 3000,
-                    style: { background: "#F44336" }
-                }).showToast();
+                Toastify({ text: "Erro ao salvar o produto.", duration: 3000, style: { background: "#F44336" } }).showToast();
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
         }
     });
 
-    // Listener para os botões da tabela (Editar e Excluir)
     productListBody.addEventListener('click', async (event) => {
         const target = event.target;
         const id = target.getAttribute('data-id');
@@ -117,20 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.classList.contains('delete-btn')) {
             if (confirm(`Tem certeza que deseja excluir o produto com ID ${id}?`)) {
                 try {
-                    const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                    // Usa a variável global
+                    const response = await fetch(`${API_BASE_URL}/api/products/${id}`, { method: 'DELETE' });
                     if (response.ok) {
-                        Toastify({
-                            text: "Produto excluído com sucesso!",
-                            duration: 3000,
-                            style: { background: "#4CAF50" }
-                        }).showToast();
+                        Toastify({ text: "Produto excluído com sucesso!", duration: 3000, style: { background: "#4CAF50" } }).showToast();
                         fetchAndDisplayProducts();
                     } else {
-                        Toastify({
-                            text: "Erro ao excluir o produto.",
-                            duration: 3000,
-                            style: { background: "#F44336" }
-                        }).showToast();
+                        Toastify({ text: "Erro ao excluir o produto.", duration: 3000, style: { background: "#F44336" } }).showToast();
                     }
                 } catch (error) {
                     console.error('Erro na requisição:', error);
@@ -140,7 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (target.classList.contains('edit-btn')) {
             try {
-                const response = await fetch(`${API_URL}/${id}`);
+                // Usa a variável global
+                const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
                 const product = await response.json();
                 
                 document.getElementById('name').value = product.name;
@@ -156,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Listener para o botão de limpar
     clearBtn.addEventListener('click', clearForm);
 
     // --- Inicialização ---

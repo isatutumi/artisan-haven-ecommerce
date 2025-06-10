@@ -8,7 +8,9 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     const password = form.password.value;
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/login', {
+        // ANTES: const response = await fetch('http://127.0.0.1:5000/api/login', { ... });
+        // AGORA: Usamos a variável global API_BASE_URL
+        const response = await fetch(`${API_BASE_URL}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,43 +21,39 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
         const data = await response.json();
 
         if (response.ok) { // Status 200 OK
-            // ANTES: alert(data.message);
             Toastify({
                 text: data.message,
                 duration: 2000,
                 gravity: "top",
                 position: "center",
-                style: { background: "#4CAF50" } // Verde sucesso
+                style: { background: "#4CAF50" }
             }).showToast();
             
             // Salva os dados do usuário no localStorage para "lembrar" que ele está logado
             localStorage.setItem('user', JSON.stringify(data.user));
             
-            // ANTES: window.location.href = './index.html';
-            // AGORA: Redireciona para a página inicial após 2 segundos
+            // Redireciona para a página inicial após 2 segundos
             setTimeout(() => {
                 window.location.href = './index.html';
             }, 2000);
 
         } else {
-            // ANTES: alert(`Erro: ${data.error}`);
             Toastify({
                 text: `Erro: ${data.error}`,
                 duration: 3000,
                 gravity: "top",
                 position: "center",
-                style: { background: "#F44336" } // Vermelho erro
+                style: { background: "#F44336" }
             }).showToast();
         }
     } catch (error) {
         console.error('Falha ao tentar fazer login:', error);
-        // ANTES: alert('Ocorreu um erro ao tentar fazer login. Tente novamente.');
         Toastify({
             text: "Ocorreu um erro de conexão. Tente novamente.",
             duration: 3000,
             gravity: "top",
             position: "center",
-            style: { background: "#F44336" } // Vermelho erro
+            style: { background: "#F44336" }
         }).showToast();
     }
 });

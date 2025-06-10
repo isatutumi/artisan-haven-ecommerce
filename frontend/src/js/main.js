@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchProducts() {
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/products');
+            const response = await fetch(`${API_BASE_URL}/api/products`);
             if (!response.ok) {
                 throw new Error('A resposta da rede não foi ok');
             }

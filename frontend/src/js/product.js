@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Chama a API com o ID específico do produto
-            const response = await fetch(`http://127.0.0.1:5000/api/products/${productId}`);
+            const response = await fetch(`${API_BASE_URL}/api/products`);
             if (!response.ok) {
                 throw new Error('Produto não encontrado.');
             }
